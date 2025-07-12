@@ -1,0 +1,1 @@
+# my-star-project-lite

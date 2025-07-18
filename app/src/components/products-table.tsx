@@ -1,11 +1,16 @@
 import { ProductsTableProps } from "@/types/products-table-props";
 
-export const ProductsTable = ({ products, loading, handleRowClick }: ProductsTableProps) => {
-    const handleTrClick = (productId: string) => {
-        handleRowClick(productId);
-    };
+export const ProductsTable = ({
+  products,
+  loading,
+  handleSeeProductClick,
+  handleEditProductClick,
+  handleDeleteProductClick,
+}: ProductsTableProps) => {
+  const handleIdClick = (productId: string) => {
+    handleSeeProductClick(productId);
+  };
 
-    
   if (loading) {
     return <p>Cargando...</p>;
   } else {
@@ -26,11 +31,34 @@ export const ProductsTable = ({ products, loading, handleRowClick }: ProductsTab
       </thead>
       <tbody>
         {products.map((product) => (
-          <tr key={product.id} onClick={() => handleTrClick(product.id)} style={{ cursor: 'pointer', padding: '10px', borderBottom: '1px solid #ccc' }}>
-            <td>{product.id}</td>
+          <tr
+            key={product.id}
+            style={{
+              cursor: "pointer",
+              padding: "10px",
+              marginBottom: "10px",
+              borderBottom: "1px solid #ccc",
+            }}
+          >
+            <td
+              style={{
+                cursor: "pointer",
+              }}
+              onClick={() => handleIdClick(product.id)}
+            >
+              {product.id}
+            </td>
             <td>{product.description}</td>
             <td>{product.brand}</td>
             <td>{product.unitPrice}</td>
+            <td>
+              <button onClick={() => handleEditProductClick(product.id)}>
+                Editar
+              </button>
+              <button onClick={() => handleDeleteProductClick(product.id)}>
+                Eliminar
+              </button>
+            </td>
           </tr>
         ))}
       </tbody>

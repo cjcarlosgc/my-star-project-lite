@@ -1,13 +1,22 @@
 'use client';
 
 import { useProduct } from '@/app/hooks/useProduct';
-import { useParams } from 'next/navigation';
+import { ProductForm } from '@/components/product-form';
+import { mapProductToFormData } from '@/utils/mappers';
+import { useParams, useRouter } from 'next/navigation';
 
 export default function Product() {
   const params = useParams();
+  const router = useRouter();
+  
   const productId = params.product as string;
 
   const { product, loading, error } = useProduct(productId);
+  const initialValues = mapProductToFormData(product);
+
+  const handleClickReturn = () => {
+        router.back();
+  }
 
   return (
     <>
@@ -16,12 +25,14 @@ export default function Product() {
       {loading && <p>Loading...</p>}
       {error && <p>Error loading product: {error.message}</p>}
       {product && (
-        <div>
-          <h2>{product.description}</h2>
-          <p>Precio: ${product.unitPrice}</p>
-          <p>Marca: {product.brand}</p>
-        </div>
+          <ProductForm
+            initialValues={initialValues}
+            readonly={true}
+            handleClickReturnButton={handleClickReturn}
+          />
       )}
     </>
   );
 }
+
+

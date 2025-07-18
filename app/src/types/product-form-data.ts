@@ -1,5 +1,6 @@
 export type ProductFormData = {
+  id: string | null;
   description: string | null;
-  unitPrice: number | null;
+  unitPrice: string | null;
   brand: string | null;
 };

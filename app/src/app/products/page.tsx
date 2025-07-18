@@ -46,7 +46,13 @@ export default function Products() {
 
   useEffect(() => {
     refetch();
-  }, [refetch])
+  }, [refetch]);
+
+  useEffect(() => {
+    if(deletedProduct?.product.id) {
+      setModalOpen(false);
+    }
+  }, [deletedProduct])
 
   return (
     <>

@@ -34,7 +34,6 @@ export const ProductsTable = ({
           <tr
             key={product.id}
             style={{
-              cursor: "pointer",
               padding: "10px",
               marginBottom: "10px",
               borderBottom: "1px solid #ccc",

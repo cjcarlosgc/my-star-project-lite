@@ -4,6 +4,6 @@ export type CreateProductInputRoot = {
 
 export type CreateProductInput = {
     description: string;
-    unitePrice: string;
+    unitPrice: number;
     brand: string;
 };

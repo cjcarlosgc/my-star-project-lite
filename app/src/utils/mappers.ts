@@ -1,7 +1,10 @@
 // import { CreateProductInputRoot } from '@/graphql/types/create-product.input';
+import { CreateProductInputRoot } from '@/graphql/types/create-product.input';
 import { DeleteProductInputRoot } from '@/graphql/types/delete-product.input';
 import { EditProductInputRoot } from '@/graphql/types/edit-product.input';
+import { LoginOutput } from '@/graphql/types/login.output';
 import { ProductEntity } from '@/graphql/types/product.entity';
+import { LoginUser } from '@/types/login-user';
 import { ProductFormData } from '@/types/product-form-data';
 
 export function mapProductToFormData(product: ProductEntity | undefined): ProductFormData | null {
@@ -16,15 +19,15 @@ export function mapProductToFormData(product: ProductEntity | undefined): Produc
   } as ProductFormData;
 }
 
-// export function mapProductFormDataToCreate(productFormData: ProductFormData) {
-//   return {
-//     input: {
-//       description: productFormData?.description,
-//       brand: productFormData?.brand,
-//       unitePrice: Number(productFormData?.unitPrice)
-//     }
-//   } as CreateProductInputRoot
-// }
+export function mapProductFormDataToCreate(productFormData: ProductFormData): CreateProductInputRoot {
+  return {
+    input: {
+      description: productFormData?.description || '',
+      brand: productFormData?.brand || '',
+      unitPrice: Number(productFormData?.unitPrice)
+    }
+  };
+}
 
 export function mapProductFormDataToEdit(productFormData: ProductFormData) {
   return {
@@ -43,5 +46,15 @@ export function mapProductFormDataToDelete(productId: string) {
       id: productId
     }
   } as DeleteProductInputRoot
+}
+
+export function mapLoginUserOutputToLoginUser(loginUserOutput: LoginOutput) : LoginUser {
+  return {
+    fullName: `${loginUserOutput.firstName} ${loginUserOutput.lastName}`,
+    role: loginUserOutput.role,
+    userId: loginUserOutput.userId,
+    userName: loginUserOutput.userName,
+    menuItems: loginUserOutput.menuItems,
+  }
 }
 
